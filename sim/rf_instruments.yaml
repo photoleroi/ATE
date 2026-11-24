@@ -1,0 +1,52 @@
+spec: "1.1"
+devices:
+  sig_gen:
+    eom:
+      USB INSTR:
+        q: "\n"
+        r: "\n"
+    dialogues:
+      - q: "*IDN?"
+        r: "Rohde&Schwarz,SMB100A,1406.6000k02,3.1.19.15"
+      - q: "OUTP ON"
+        r: "OK"
+      - q: "OUTP OFF"
+        r: "OK"
+    properties:
+      frequency:
+        default: 433.92
+        getter:
+          q: "FREQ?"
+          r: "{:.2f}"
+        setter:
+          q: "FREQ {:.2f} MHz"
+      power:
+        default: 0.0
+        getter:
+          q: "POW?"
+          r: "{:.2f}"
+        setter:
+          q: "POW {:.2f} dBm"
+
+  spec_an:
+    eom:
+      USB INSTR:
+        q: "\n"
+        r: "\n"
+    dialogues:
+      - q: "*IDN?"
+        r: "Keysight Technologies,N9020B,MY56001234,A.25.05"
+    properties:
+      center_freq:
+        default: 433.92
+        getter:
+          q: "FREQ:CENT?"
+          r: "{:.2f}"
+        setter:
+          q: "FREQ:CENT {:.2f} MHz"
+
+resources:
+  USB0::0x0AAD::0x0054::100001::INSTR:
+    device: sig_gen
+  USB0::0x2A8D::0x1B0B::200002::INSTR:
+    device: spec_an
